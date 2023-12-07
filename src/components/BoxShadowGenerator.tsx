@@ -1,6 +1,7 @@
 import ColorPicker from "./common/ColorPicker";
 import MLegacyCard from "./layout/MLegacyCard";
 import ListBoxShadow from "./list-box-shadow/ListBoxShadow";
+import Test from "./list-box-shadow/Test";
 import { Checkbox, RangeSlider } from "@shopify/polaris";
 import { ResetMinor } from "@shopify/polaris-icons";
 import { useState, useCallback } from "react";
@@ -29,11 +30,9 @@ const BoxShadowGenerator = () => {
     opacity: number;
     inset: boolean;
   }>(initValue);
-  const handleRangeSliderChange = useCallback(
-    (value: number, id: string) =>
-      setRangeValues({ ...rangeValues, [id]: value }),
-    []
-  );
+  const handleRangeSliderChange = (value: number, id: string) =>
+    setRangeValues({ ...rangeValues, [id]: value });
+
   const handleReset = useCallback((id) => {
     setRangeValues({ ...rangeValues, [id]: initValue[id] });
   }, []);
@@ -128,7 +127,7 @@ const BoxShadowGenerator = () => {
           }}
         />
         <div className="my-2 w-full h-3 border-t-2"></div>
-        <ListBoxShadow />
+        <ListBoxShadow hasInset={rangeValues.inset} />
       </MLegacyCard>
     </>
   );

@@ -1,6 +1,9 @@
 .item.dragging {
   opacity: 0.8;
 }
+.item {
+  transition: transform 0.3s ease-in-out;
+}
 .item.dragging :where(.details, span) {
   opacity: 0;
 }

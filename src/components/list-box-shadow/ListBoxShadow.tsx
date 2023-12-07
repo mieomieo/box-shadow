@@ -1,5 +1,6 @@
 import "../template/index.scss";
 import "./index.scss";
+import userdata from "./tempData.json";
 import { Button } from "@shopify/polaris";
 import {
   EditMinor,
@@ -7,8 +8,11 @@ import {
   DragHandleMinor,
 } from "@shopify/polaris-icons";
 import { useRef, useState } from "react";
+import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
 type CSSCode = {
+  id: number;
+  inset: boolean;
   rgba: { r: number; g: number; b: number; a: number };
   boxShadow: {
     shiftRight: number;
@@ -17,9 +21,13 @@ type CSSCode = {
     spread: number;
   };
 }[];
-
-const ListBoxShadow = () => {
+type Props = {
+  hasInset: boolean;
+};
+const ListBoxShadow = ({ hasInset }: Props) => {
   const initValues = {
+    id: 0,
+    inset: false,
     rgba: { r: 0, g: 0, b: 0, a: 0.2 },
     boxShadow: {
       shiftRight: 0,
@@ -29,104 +37,80 @@ const ListBoxShadow = () => {
     },
   };
   const [listBoxShadow, setListBoxShadow] = useState<CSSCode>([initValues]);
-  const [test, setTest] = useState([1, 2, 3]);
 
-  const dragItemIndex = useRef<any>(null);
-  const dragOverItemIndex = useRef<any>(null);
-  const sortableList = useRef<any>(null);
-  const draggingItem = useRef<any>(null);
+  const idCounter = useRef(0);
 
   const handleAddNew = () => {
-    setListBoxShadow([...listBoxShadow, initValues]);
+    idCounter.current += 1;
+    setListBoxShadow((prevList) => [
+      ...prevList,
+      {
+        id: idCounter.current,
+        inset: false,
+        rgba: { r: 0, g: 0, b: 0, a: 0.2 },
+        boxShadow: {
+          shiftRight: 0,
+          shiftDown: 0,
+          blur: 5,
+          spread: 3,
+        },
+      },
+    ]);
   };
-  const handleOnDragStart = (e, dragItem, index) => {
-    // console.log("sortableList", sortableList.current);
-    dragItem.current = index;
-    setTimeout(() => {
-      e.target.classList.add("dragging");
-    });
+  const handleDragEnd = (e) => {
+    if (!e.destination) return;
+    let tempData = Array.from(listBoxShadow);
+    let [source_data] = tempData.splice(e.source.index, 1);
+    tempData.splice(e.destination.index, 0, source_data);
+    setListBoxShadow(tempData);
   };
-
-  const handleSortCSS = (e) => {
-    const siblings = [
-      ...sortableList.current.querySelectorAll(".item:not(.dragging)"),
-    ];
-    console.log("siblings", siblings);
-    const nextSibling = siblings.find((sibling) => {
-      const result = e.clientY <= sibling.offsetTop + sibling.offsetHeight;
-      console.log(e.clientY);
-      console.log("result", result);
-      return result;
-    });
-    console.log("nextsibling", nextSibling);
-    sortableList.current.insertBefore(draggingItem.current, nextSibling);
-  };
-  const handleSort = (e) => {
-    e.preventDefault();
-
-    const draftList = [...test];
-
-    const draggedItemIndex = draftList.splice(dragItemIndex.current, 1)[0];
-
-    draftList.splice(dragOverItemIndex.current, 0, draggedItemIndex);
-    dragItemIndex.current = null;
-    dragOverItemIndex.current = null;
-    e.target.classList.remove("dragging");
-    setTest(draftList);
+  const handleDelete = (value) => {
+    const tempArr = [...listBoxShadow];
+    if (tempArr.length > 1) {
+      const newListBoxShadow = tempArr.filter((item) => item.id !== value);
+      setListBoxShadow(newListBoxShadow);
+    }
   };
   return (
     <>
       <Button onClick={handleAddNew}>ADD LAYER</Button>
 
-      <ul ref={sortableList} className="sortable-list mt-5">
-        {/*{listBoxShadow.map((item, index) => (*/}
-        {/*  <li*/}
-        {/*    draggable={true}*/}
-        {/*    key={index}*/}
-        {/*    className={`item-${index} mt-1 bg-slate-100 rounded-md `}*/}
-        {/*    onDragStart={(e) => {*/}
-        {/*      handleOnDragStart(e, dragItem, index);*/}
-        {/*    }}*/}
-        {/*    onDragEnter={(e) => {*/}
-        {/*      e.preventDefault();*/}
-        {/*      dragOverItem.current = index;*/}
-        {/*    }}*/}
-        {/*    onDragEnd={handleSort}*/}
-        {/*    onDragOver={(e) => e.preventDefault()}*/}
-        {/*  >*/}
-        {/*    <div className="details flex px-3 py-2 w-full h-11 border rounded-md ">*/}
-        {/*      <DragHandleMinor />*/}
-        {/*      <span className="grow px-3 py-1">{`${item.boxShadow.shiftRight}px ${item.boxShadow.shiftDown}px ${item.boxShadow.blur}px ${item.boxShadow.spread}px rgba(${item.rgba.r}, ${item.rgba.g}, ${item.rgba.b}, ${item.rgba.a})`}</span>*/}
-        {/*      <EditMinor />*/}
-        {/*      <DeleteMinor />*/}
-        {/*    </div>*/}
-        {/*  </li>*/}
-        {/*))}*/}
-        {test.map((item, index) => (
-          <li
-            ref={draggingItem}
-            draggable={true}
-            key={index}
-            className={`item item-${index} mt-1 bg-slate-100 rounded-md `}
-            onDragStart={(e) => {
-              handleOnDragStart(e, dragItemIndex, index);
-            }}
-            onDragEnter={(e) => {
-              e.preventDefault();
-              dragOverItemIndex.current = index;
-            }}
-            onDragEnd={handleSort}
-            onDragOver={handleSortCSS}
-          >
-            <div className="details flex px-3 py-2 w-full h-11 border rounded-md ">
-              <DragHandleMinor />
-              <span>{item}</span>
-              <EditMinor />
-              <DeleteMinor />
-            </div>
-          </li>
-        ))}
-      </ul>
+      <DragDropContext onDragEnd={handleDragEnd}>
+        <table className="drag-table mt-3 w-full">
+          <Droppable droppableId="droppable-1">
+            {(provider) => (
+              <tbody ref={provider.innerRef} {...provider.droppableProps}>
+                {listBoxShadow?.map((item, index) => (
+                  <Draggable
+                    key={listBoxShadow[index].id.toString()}
+                    draggableId={listBoxShadow[index].id.toString()}
+                    index={index}
+                  >
+                    {(provider) => (
+                      <tr {...provider.draggableProps} ref={provider.innerRef}>
+                        <td className="flex" {...provider.dragHandleProps}>
+                          <div className="flex px-3 py-2 w-full h-11 border rounded-md">
+                            <DragHandleMinor />
+                            <span className="grow px-3 py-1 ">
+                              {hasInset && "inset"}{" "}
+                              {`${item.boxShadow.shiftRight}px ${item.boxShadow.shiftDown}px ${item.boxShadow.blur}px ${item.boxShadow.spread}px rgba(${item.rgba.r}, ${item.rgba.g}, ${item.rgba.b}, ${item.rgba.a})`}
+                            </span>
+                            <EditMinor />
+                            <DeleteMinor
+                              onClick={() => handleDelete(item.id)}
+                            />
+                          </div>
+                        </td>
+                      </tr>
+                    )}
+                  </Draggable>
+                ))}
+                {provider.placeholder}
+              </tbody>
+            )}
+          </Droppable>
+        </table>
+      </DragDropContext>
     </>
   );
 };

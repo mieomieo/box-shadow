@@ -1,5 +1,5 @@
+import MLegacyCard from "../layout/MLegacyCard";
 import "./index.scss";
-import MLegacyCard from "./layout/MLegacyCard";
 
 const Template = () => {
   return (

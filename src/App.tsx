@@ -2,8 +2,8 @@ import "./App.css";
 import BoxShadowGenerator from "./components/BoxShadowGenerator";
 import Preview from "./components/Preview";
 import PreviewCode from "./components/PreviewCode";
-import Template from "./components/Template";
 import Header from "./components/layout/Header";
+import Template from "./components/template/Template";
 
 function App() {
   return (

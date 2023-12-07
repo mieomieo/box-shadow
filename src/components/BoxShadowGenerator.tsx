@@ -1,6 +1,7 @@
 import ColorPicker from "./common/ColorPicker";
 import MLegacyCard from "./layout/MLegacyCard";
-import { Checkbox, Button, RangeSlider } from "@shopify/polaris";
+import ListBoxShadow from "./list-box-shadow/ListBoxShadow";
+import { Checkbox, RangeSlider } from "@shopify/polaris";
 import { ResetMinor } from "@shopify/polaris-icons";
 import { useState, useCallback } from "react";
 import { RGBColor } from "react-color";
@@ -50,7 +51,7 @@ const BoxShadowGenerator = () => {
           onChange={(e) => handleRangeSliderChange(e, "shiftRight")}
           suffix={
             <ResetMinor
-              className="ml-2 w-6 h-6"
+              className="cursor-pointer ml-2 w-6 h-6"
               onClick={() => handleReset("shiftRight")}
             />
           }
@@ -65,7 +66,7 @@ const BoxShadowGenerator = () => {
           onChange={(e) => handleRangeSliderChange(e, "shiftDown")}
           suffix={
             <ResetMinor
-              className="ml-2 w-6 h-6"
+              className="cursor-pointer ml-2 w-6 h-6"
               onClick={() => handleReset("shiftDown")}
             />
           }
@@ -80,7 +81,7 @@ const BoxShadowGenerator = () => {
           onChange={(e) => handleRangeSliderChange(e, "spread")}
           suffix={
             <ResetMinor
-              className="ml-2 w-6 h-6"
+              className="cursor-pointer ml-2 w-6 h-6"
               onClick={() => handleReset("spread")}
             />
           }
@@ -95,7 +96,7 @@ const BoxShadowGenerator = () => {
           onChange={(e) => handleRangeSliderChange(e, "blur")}
           suffix={
             <ResetMinor
-              className="ml-2 w-6 h-6"
+              className="cursor-pointer ml-2 w-6 h-6"
               onClick={() => handleReset("blur")}
             />
           }
@@ -110,7 +111,7 @@ const BoxShadowGenerator = () => {
           onChange={(e) => handleRangeSliderChange(e, "opacity")}
           suffix={
             <ResetMinor
-              className="ml-2 w-6 h-6"
+              className="cursor-pointer ml-2 w-6 h-6"
               onClick={() => handleReset("opacity")}
             />
           }
@@ -126,10 +127,8 @@ const BoxShadowGenerator = () => {
             setColor(color);
           }}
         />
-        <div className="w-full h-3 border-t-2"></div>
-        <div>
-          <Button>ADD LAYER</Button>
-        </div>
+        <div className="my-2 w-full h-3 border-t-2"></div>
+        <ListBoxShadow />
       </MLegacyCard>
     </>
   );

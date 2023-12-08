@@ -48,10 +48,10 @@ const BoxShadowGenerator = () => {
     }
     setListBoxShadow(tempData);
   };
-  const handleDelete = (value) => {
+  const handleDelete = (id) => {
     const tempArr = [...listBoxShadow];
     if (tempArr.length > 1) {
-      const newListBoxShadow = tempArr.filter((item) => item.id !== value);
+      const newListBoxShadow = tempArr.filter((item) => item.id !== id);
       setListBoxShadow(newListBoxShadow);
     }
   };
@@ -89,7 +89,7 @@ const BoxShadowGenerator = () => {
                             >
                               <DragHandleMinor />
                               <div
-                                onClick={(e) => {
+                                onClick={() => {
                                   setSelectedItemIndex(index);
                                 }}
                                 className="grow  py-1 text-md font-bold text-base "
@@ -106,7 +106,10 @@ const BoxShadowGenerator = () => {
                               <EditMinor />
                               <DeleteMinor
                                 onClick={() => {
-                                  setSelectedItemIndex(selectedItemIndex - 1);
+                                  if (selectedItemIndex > 0) {
+                                    setSelectedItemIndex(selectedItemIndex - 1);
+                                  }
+
                                   handleDelete(item.id);
                                 }}
                               />

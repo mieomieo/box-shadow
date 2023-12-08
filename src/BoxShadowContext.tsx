@@ -9,6 +9,7 @@ type CSSCode = {
     shiftDown: number;
     blur: number;
     spread: number;
+    opacity: number;
     inset: boolean;
   };
 }[];
@@ -20,6 +21,7 @@ export const initValues = {
     shiftDown: 0,
     blur: 5,
     spread: 3,
+    opacity: 20,
     inset: false,
   },
 };

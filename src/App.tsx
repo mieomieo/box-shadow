@@ -1,7 +1,8 @@
 import "./App.css";
-import BoxShadowGenerator from "./components/BoxShadowGenerator";
 import Preview from "./components/Preview";
 import PreviewCode from "./components/PreviewCode";
+import BoxShadowGenerator from "./components/box-shadow-generator/BoxShadowGenerator";
+import ListRangeValues from "./components/box-shadow-generator/ListRangeValues";
 import Header from "./components/layout/Header";
 import Template from "./components/template/Template";
 

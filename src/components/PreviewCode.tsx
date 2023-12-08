@@ -1,7 +1,6 @@
 import { BoxShadowContext } from "../BoxShadowContext";
 import MLegacyCard from "./layout/MLegacyCard";
-import { Button, Frame, Icon, Toast } from "@shopify/polaris";
-import { ClipboardMinor } from "@shopify/polaris-icons";
+import { Button, Frame, Toast } from "@shopify/polaris";
 import { useCallback, useContext, useState } from "react";
 
 const PreviewCode = () => {
@@ -31,15 +30,17 @@ const PreviewCode = () => {
       <MLegacyCard title="CSS code">
         <div onClick={toggleActive} className="absolute top-5 right-5">
           <Button
-            children={
-              <>
-                <div className="flex justify-center text-sm">
-                  <span className="mr-1">Copy</span>
-                  <Icon source={ClipboardMinor} tone="base" />
-                </div>
-              </>
-            }
-          ></Button>
+          // children={
+          //   <>
+          //     <div className="flex justify-center text-sm">
+          //       <span className="mr-1">Copy</span>
+          //       <Icon source={ClipboardMinor} tone="base" />
+          //     </div>
+          //   </>
+          // }
+          >
+            Copy
+          </Button>
         </div>
 
         <pre>

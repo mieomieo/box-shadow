@@ -1,9 +1,10 @@
+import { RGBA } from "../../BoxShadowContext";
 import { useState } from "react";
-import { ColorResult, RGBColor, SketchPicker } from "react-color";
+import { ColorResult, SketchPicker } from "react-color";
 
 type ColorPickerProps = {
-  color: RGBColor;
-  setColor: (color: RGBColor) => void;
+  color: RGBA;
+  setColor: (color: RGBA) => void;
 };
 
 const ColorPicker = ({ color, setColor }: ColorPickerProps) => {
@@ -19,7 +20,7 @@ const ColorPicker = ({ color, setColor }: ColorPickerProps) => {
 
   const handleChange = (newColor: ColorResult) => {
     // console.log(color);
-    setColor(newColor.rgb);
+    setColor(newColor.rgb as RGBA);
   };
 
   return (

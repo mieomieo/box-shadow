@@ -1,16 +1,14 @@
-import { BoxShadowContext } from "../../BoxShadowContext";
+import { BoxShadowContext, RGBA } from "../../BoxShadowContext";
 import ColorPicker from "../common/ColorPicker";
 import "./index.scss";
 import { Checkbox, RangeSlider } from "@shopify/polaris";
 import { ResetMinor } from "@shopify/polaris-icons";
 import { useContext } from "react";
-import { RGBColor } from "react-color";
 
 type Props = {
   index: number;
 };
 const ListRangeValues = ({ index }: Props) => {
-  // console.log("index", index);
   const context = useContext(BoxShadowContext);
   const { listBoxShadow, setListBoxShadow } = context;
   const data = listBoxShadow[index];
@@ -22,7 +20,7 @@ const ListRangeValues = ({ index }: Props) => {
     opacity: 20,
     inset: false,
   };
-  const handleRangeChange = (value: number, key: string) => {
+  const handleRangeChange = (value: number | boolean, key: string) => {
     const updateListBoxShadow = [...listBoxShadow];
     const updateBoxShadow = { ...updateListBoxShadow[index].boxShadow };
 
@@ -49,7 +47,7 @@ const ListRangeValues = ({ index }: Props) => {
 
     setListBoxShadow(updateListBoxShadow);
   };
-  const handlePickColor = (color: RGBColor) => {
+  const handlePickColor = (color: RGBA) => {
     const updateListColor = [...listBoxShadow];
     updateListColor[index] = {
       ...updateListColor[index],
@@ -66,7 +64,7 @@ const ListRangeValues = ({ index }: Props) => {
         min={-50}
         max={50}
         value={data.boxShadow.shiftRight}
-        onChange={(e) => handleRangeChange(e, "shiftRight")}
+        onChange={(e: number) => handleRangeChange(e, "shiftRight")}
         suffix={
           <ResetMinor
             className="cursor-pointer ml-2 w-6 h-6"
@@ -81,7 +79,7 @@ const ListRangeValues = ({ index }: Props) => {
         min={-50}
         max={50}
         value={data.boxShadow.shiftDown}
-        onChange={(e) => handleRangeChange(e, "shiftDown")}
+        onChange={(e: number) => handleRangeChange(e, "shiftDown")}
         suffix={
           <ResetMinor
             className="cursor-pointer ml-2 w-6 h-6"
@@ -96,7 +94,7 @@ const ListRangeValues = ({ index }: Props) => {
         min={0}
         max={100}
         value={data.boxShadow.spread}
-        onChange={(e) => handleRangeChange(e, "spread")}
+        onChange={(e: number) => handleRangeChange(e, "spread")}
         suffix={
           <ResetMinor
             className="cursor-pointer ml-2 w-6 h-6"
@@ -111,7 +109,7 @@ const ListRangeValues = ({ index }: Props) => {
         min={0}
         max={100}
         value={data.boxShadow.blur}
-        onChange={(e) => handleRangeChange(e, "blur")}
+        onChange={(e: number) => handleRangeChange(e, "blur")}
         suffix={
           <ResetMinor
             className="cursor-pointer ml-2 w-6 h-6"
@@ -127,7 +125,7 @@ const ListRangeValues = ({ index }: Props) => {
         min={0}
         max={100}
         value={data.boxShadow.opacity}
-        onChange={(e) => handleRangeChange(e, "opacity")}
+        onChange={(e: number) => handleRangeChange(e, "opacity")}
         suffix={
           <ResetMinor
             className="cursor-pointer ml-2 w-6 h-6"

@@ -1,19 +1,34 @@
-import { useState, createContext } from "react";
+import {
+  useState,
+  createContext,
+  ReactNode,
+  Dispatch,
+  SetStateAction,
+} from "react";
 
-const BoxShadowContext = createContext({});
-type CSSCode = {
+export interface RGBA {
+  r: number;
+  g: number;
+  b: number;
+  a: number;
+}
+
+interface BoxShadow {
+  shiftRight: number;
+  shiftDown: number;
+  blur: number;
+  spread: number;
+  opacity: number;
+  inset: boolean;
+}
+
+export interface CSSCode {
   id: number;
-  rgba: { r: number; g: number; b: number; a: number };
-  boxShadow: {
-    shiftRight: number;
-    shiftDown: number;
-    blur: number;
-    spread: number;
-    opacity: number;
-    inset: boolean;
-  };
-}[];
-export const initValues = {
+  rgba: RGBA;
+  boxShadow: BoxShadow;
+}
+
+export const initValues: CSSCode = {
   id: 0,
   rgba: { r: 0, g: 0, b: 0, a: 0.2 },
   boxShadow: {
@@ -25,19 +40,38 @@ export const initValues = {
     inset: false,
   },
 };
-function BoxShadowProvider({ children }) {
-  const [listBoxShadow, setListBoxShadow] = useState<CSSCode>([initValues]);
+
+interface BoxShadowContextProps {
+  listBoxShadow: CSSCode[];
+  setListBoxShadow: Dispatch<SetStateAction<CSSCode[]>>;
+  hasInset: boolean;
+  setHasInset: Dispatch<SetStateAction<boolean>>;
+}
+
+export const BoxShadowContext = createContext<
+  BoxShadowContextProps | undefined
+>(undefined);
+
+interface BoxShadowProviderProps {
+  children: ReactNode;
+}
+
+function BoxShadowProvider({ children }: BoxShadowProviderProps) {
+  const [listBoxShadow, setListBoxShadow] = useState<CSSCode[]>([initValues]);
   const [hasInset, setHasInset] = useState(false);
-  const value = {
+
+  const value: BoxShadowContextProps = {
     listBoxShadow,
     setListBoxShadow,
     hasInset,
     setHasInset,
   };
+
   return (
     <BoxShadowContext.Provider value={value}>
       {children}
     </BoxShadowContext.Provider>
   );
 }
-export { BoxShadowContext, BoxShadowProvider };
+
+export { BoxShadowProvider };

@@ -61,10 +61,7 @@ const BoxShadowGenerator = () => {
       <MLegacyCard title="Box-Shadow CSS Generator">
         <ListRangeValues index={selectedItemIndex} />
         <div className="my-2 w-full h-3 border-t-2"></div>
-        <Button onClick={handleAddNew}>
-          {" "}
-          <span className="text-sm">Add layer </span>
-        </Button>
+        <Button onClick={handleAddNew}>Add layer</Button>
         <DragDropContext onDragEnd={handleDragEnd}>
           <table className="drag-table mt-3 w-full">
             <Droppable droppableId="droppable-1">

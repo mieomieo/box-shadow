@@ -1,8 +1,7 @@
-import { BoxShadowContext } from "../BoxShadowContext";
+import { BoxShadowContext, RGBA } from "../BoxShadowContext";
 import ColorPicker from "./common/ColorPicker";
 import MLegacyCard from "./layout/MLegacyCard";
 import { useContext, useState } from "react";
-import { RGBColor } from "react-color";
 
 const Preview = () => {
   const { listBoxShadow } = useContext(BoxShadowContext);
@@ -17,13 +16,13 @@ const Preview = () => {
     )
     .join(", ");
 
-  const [color, setColor] = useState<RGBColor>({
+  const [color, setColor] = useState<RGBA>({
     r: 103,
     g: 232,
     b: 249,
     a: 1,
   });
-  const [backgroundColor, setBackgroundColor] = useState<RGBColor>({
+  const [backgroundColor, setBackgroundColor] = useState<RGBA>({
     r: 255,
     g: 255,
     b: 255,

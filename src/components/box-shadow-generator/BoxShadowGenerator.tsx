@@ -89,7 +89,7 @@ const BoxShadowGenerator = () => {
                             >
                               <DragHandleMinor />
                               <div
-                                onClick={() => {
+                                onClick={(e) => {
                                   setSelectedItemIndex(index);
                                 }}
                                 className="grow  py-1 text-md font-bold text-base "
@@ -105,7 +105,10 @@ const BoxShadowGenerator = () => {
                               </div>
                               <EditMinor />
                               <DeleteMinor
-                                onClick={() => handleDelete(item.id)}
+                                onClick={() => {
+                                  setSelectedItemIndex(selectedItemIndex - 1);
+                                  handleDelete(item.id);
+                                }}
                               />
                             </div>
                           </td>

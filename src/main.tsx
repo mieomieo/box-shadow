@@ -7,12 +7,11 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <AppProvider i18n={enTranslations}>
-      <BoxShadowProvider>
-        <App />
-      </BoxShadowProvider>
-    </AppProvider>
-    //{" "}
-  </React.StrictMode>
+  // <React.StrictMode>
+  <AppProvider i18n={enTranslations}>
+    <BoxShadowProvider>
+      <App />
+    </BoxShadowProvider>
+  </AppProvider>
+  // </React.StrictMode>
 );

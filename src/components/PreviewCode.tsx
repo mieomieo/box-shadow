@@ -29,18 +29,7 @@ const PreviewCode = () => {
     <>
       <MLegacyCard title="CSS code">
         <div onClick={toggleActive} className="absolute top-5 right-5">
-          <Button
-          // children={
-          //   <>
-          //     <div className="flex justify-center text-sm">
-          //       <span className="mr-1">Copy</span>
-          //       <Icon source={ClipboardMinor} tone="base" />
-          //     </div>
-          //   </>
-          // }
-          >
-            Copy
-          </Button>
+          <Button>Copy</Button>
         </div>
 
         <pre>

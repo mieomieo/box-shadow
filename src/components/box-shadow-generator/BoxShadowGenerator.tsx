@@ -82,7 +82,7 @@ const BoxShadowGenerator = () => {
                         >
                           <td className="flex mt-2 ">
                             <div
-                              className={`flex py-1 w-full h-9 border rounded-md select-none ${
+                              className={`flex px-2 py-1 w-full h-9 border rounded-md select-none ${
                                 index === selectedItemIndex
                                   ? "selected-item"
                                   : ""

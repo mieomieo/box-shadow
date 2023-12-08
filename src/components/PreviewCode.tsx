@@ -1,7 +1,7 @@
 import { BoxShadowContext } from "../BoxShadowContext";
 import MLegacyCard from "./layout/MLegacyCard";
 import { Button, Frame, Toast } from "@shopify/polaris";
-import { useCallback, useContext, useState } from "react";
+import { useContext, useState } from "react";
 
 const PreviewCode = () => {
   const { listBoxShadow } = useContext(BoxShadowContext);
@@ -17,10 +17,10 @@ const PreviewCode = () => {
     .join(", \n");
   const cssCode = "box-shadow:" + boxShadowCSS + ";";
   const [active, setActive] = useState(false);
-  const toggleActive = useCallback(() => {
+  const toggleActive = () => {
     navigator.clipboard.writeText(cssCode);
     setActive((active) => !active);
-  }, []);
+  };
 
   const toastMarkup = active ? (
     <Toast content="Copied to clipboard!" onDismiss={toggleActive} />

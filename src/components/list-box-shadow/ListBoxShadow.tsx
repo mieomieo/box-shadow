@@ -1,4 +1,4 @@
-import { BoxShadowContext } from "../../BoxShadowContext";
+import { BoxShadowContext, initValues } from "../../BoxShadowContext";
 import "../template/index.scss";
 import "./index.scss";
 import { Button } from "@shopify/polaris";
@@ -12,38 +12,29 @@ import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
 const ListBoxShadow = () => {
   const context = useContext(BoxShadowContext);
-  console.log(context.listBoxShadow);
+  const { listBoxShadow, setListBoxShadow } = context;
+  console.log(listBoxShadow);
   const idCounter = useRef(0);
 
   const handleAddNew = () => {
     idCounter.current += 1;
-    context.setListBoxShadow((prevList) => [
+    setListBoxShadow((prevList) => [
       ...prevList,
-      {
-        id: idCounter.current,
-        rgba: { r: 0, g: 0, b: 0, a: 0.2 },
-        boxShadow: {
-          shiftRight: 0,
-          shiftDown: 0,
-          blur: 5,
-          spread: 3,
-          inset: false,
-        },
-      },
+      { ...initValues, id: idCounter.current },
     ]);
   };
   const handleDragEnd = (e) => {
     if (!e.destination) return;
-    const tempData = Array.from(context.listBoxShadow);
+    const tempData = Array.from(listBoxShadow);
     const [source_data] = tempData.splice(e.source.index, 1);
     tempData.splice(e.destination.index, 0, source_data);
-    context.setListBoxShadow(tempData);
+    setListBoxShadow(tempData);
   };
   const handleDelete = (value) => {
-    const tempArr = [...context.listBoxShadow];
+    const tempArr = [...listBoxShadow];
     if (tempArr.length > 1) {
       const newListBoxShadow = tempArr.filter((item) => item.id !== value);
-      context.setListBoxShadow(newListBoxShadow);
+      setListBoxShadow(newListBoxShadow);
     }
   };
   return (
@@ -55,10 +46,10 @@ const ListBoxShadow = () => {
           <Droppable droppableId="droppable-1">
             {(provider) => (
               <tbody ref={provider.innerRef} {...provider.droppableProps}>
-                {context.listBoxShadow?.map((item, index) => (
+                {listBoxShadow?.map((item, index) => (
                   <Draggable
-                    key={context.listBoxShadow[index].id.toString()}
-                    draggableId={context.listBoxShadow[index].id.toString()}
+                    key={listBoxShadow[index].id.toString()}
+                    draggableId={listBoxShadow[index].id.toString()}
                     index={index}
                   >
                     {(provider) => (
@@ -66,13 +57,13 @@ const ListBoxShadow = () => {
                         <td className="flex mt-2 ">
                           <div
                             {...provider.dragHandleProps}
-                            className="flex py-1 w-full h-11 border rounded-md select-none bg-cyan-200"
+                            className="flex py-1 w-full h-10 border rounded-md select-none bg-cyan-200"
                           >
                             <DragHandleMinor />
-                            <span className="grow px-3 py-1 text-lg  ">
-                              {hasInset && "inset"}{" "}
+                            <div className="grow  py-1 text-lg text-base ">
+                              {item.boxShadow.inset && "inset"}{" "}
                               {`${item.boxShadow.shiftRight}px ${item.boxShadow.shiftDown}px ${item.boxShadow.blur}px ${item.boxShadow.spread}px rgba(${item.rgba.r}, ${item.rgba.g}, ${item.rgba.b}, ${item.rgba.a})`}
-                            </span>
+                            </div>
                             <EditMinor />
                             <DeleteMinor
                               onClick={() => handleDelete(item.id)}

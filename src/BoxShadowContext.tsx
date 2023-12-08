@@ -1,6 +1,6 @@
 import { useState, createContext } from "react";
 
-const BoxShadowContext = createContext();
+const BoxShadowContext = createContext({});
 type CSSCode = {
   id: number;
   rgba: { r: number; g: number; b: number; a: number };
@@ -12,18 +12,18 @@ type CSSCode = {
     inset: boolean;
   };
 }[];
+export const initValues = {
+  id: 0,
+  rgba: { r: 0, g: 0, b: 0, a: 0.2 },
+  boxShadow: {
+    shiftRight: 0,
+    shiftDown: 0,
+    blur: 5,
+    spread: 3,
+    inset: false,
+  },
+};
 function BoxShadowProvider({ children }) {
-  const initValues = {
-    id: 0,
-    rgba: { r: 0, g: 0, b: 0, a: 0.2 },
-    boxShadow: {
-      shiftRight: 0,
-      shiftDown: 0,
-      blur: 5,
-      spread: 3,
-      inset: false,
-    },
-  };
   const [listBoxShadow, setListBoxShadow] = useState<CSSCode>([initValues]);
   const [hasInset, setHasInset] = useState(false);
   const value = {

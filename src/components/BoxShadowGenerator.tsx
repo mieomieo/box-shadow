@@ -1,13 +1,15 @@
+import { BoxShadowContext } from "../BoxShadowContext";
 import ColorPicker from "./common/ColorPicker";
 import MLegacyCard from "./layout/MLegacyCard";
 import ListBoxShadow from "./list-box-shadow/ListBoxShadow";
-import Test from "./list-box-shadow/Test";
 import { Checkbox, RangeSlider } from "@shopify/polaris";
 import { ResetMinor } from "@shopify/polaris-icons";
-import { useState, useCallback } from "react";
+import { useContext, useState } from "react";
 import { RGBColor } from "react-color";
 
 const BoxShadowGenerator = () => {
+  const context = useContext(BoxShadowContext);
+  const { listBoxShadow, setListBoxShadow } = context;
   const [color, setColor] = useState<RGBColor>({
     r: 0,
     g: 0,
@@ -22,20 +24,13 @@ const BoxShadowGenerator = () => {
     opacity: 20,
     inset: false,
   };
-  const [rangeValues, setRangeValues] = useState<{
-    shiftRight: number;
-    shiftDown: number;
-    spread: number;
-    blur: number;
-    opacity: number;
-    inset: boolean;
-  }>(initValue);
-  const handleRangeSliderChange = (value: number, id: string) =>
-    setRangeValues({ ...rangeValues, [id]: value });
 
-  const handleReset = useCallback((id) => {
-    setRangeValues({ ...rangeValues, [id]: initValue[id] });
-  }, []);
+  const handleRangeSliderChange = (value: number, id: string) =>
+    setListBoxShadow({ ...listBoxShadow, [id]: value });
+
+  const handleReset = (id) => {
+    setListBoxShadow({ ...listBoxShadow, [id]: initValue[id] });
+  };
 
   return (
     <>
@@ -46,7 +41,7 @@ const BoxShadowGenerator = () => {
           label="Shift right"
           min={-50}
           max={50}
-          value={rangeValues.shiftRight}
+          value={listBoxShadow[0].boxShadow.shiftRight}
           onChange={(e) => handleRangeSliderChange(e, "shiftRight")}
           suffix={
             <ResetMinor
@@ -61,7 +56,7 @@ const BoxShadowGenerator = () => {
           label="Shift down"
           min={-50}
           max={50}
-          value={rangeValues.shiftDown}
+          value={listBoxShadow[0].boxShadow.shiftDown}
           onChange={(e) => handleRangeSliderChange(e, "shiftDown")}
           suffix={
             <ResetMinor
@@ -76,7 +71,7 @@ const BoxShadowGenerator = () => {
           label="Spread"
           min={0}
           max={100}
-          value={rangeValues.spread}
+          value={listBoxShadow[0].boxShadow.spread}
           onChange={(e) => handleRangeSliderChange(e, "spread")}
           suffix={
             <ResetMinor
@@ -91,7 +86,7 @@ const BoxShadowGenerator = () => {
           label="Blur"
           min={0}
           max={100}
-          value={rangeValues.blur}
+          value={listBoxShadow[0].boxShadow.blur}
           onChange={(e) => handleRangeSliderChange(e, "blur")}
           suffix={
             <ResetMinor
@@ -106,7 +101,7 @@ const BoxShadowGenerator = () => {
           label="Opacity"
           min={0}
           max={100}
-          value={rangeValues.opacity}
+          value={listBoxShadow[0].boxShadow.opacity}
           onChange={(e) => handleRangeSliderChange(e, "opacity")}
           suffix={
             <ResetMinor
@@ -117,7 +112,7 @@ const BoxShadowGenerator = () => {
         />
         <Checkbox
           label="Inset"
-          checked={rangeValues.inset}
+          checked={listBoxShadow[0].boxShadow.inset}
           onChange={(e) => handleRangeSliderChange(e, "inset")}
         />
         <ColorPicker
@@ -127,7 +122,7 @@ const BoxShadowGenerator = () => {
           }}
         />
         <div className="my-2 w-full h-3 border-t-2"></div>
-        <ListBoxShadow hasInset={rangeValues.inset} />
+        <ListBoxShadow />
       </MLegacyCard>
     </>
   );

@@ -10,7 +10,7 @@ type Props = {
   index: number;
 };
 const ListRangeValues = ({ index }: Props) => {
-  console.log("index", index);
+  // console.log("index", index);
   const context = useContext(BoxShadowContext);
   const { listBoxShadow, setListBoxShadow } = context;
   const data = listBoxShadow[index];

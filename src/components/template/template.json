@@ -1,0 +1,114 @@
+[
+  [
+    {
+      "id": 0,
+      "rgba": { "r": 40, "g": 159, "b": 237, "a": 1 },
+      "boxShadow": {
+        "shiftRight": 5,
+        "shiftDown": 5,
+        "blur": 0,
+        "spread": 0,
+        "opacity": 100,
+        "inset": false
+      }
+    },
+    {
+      "id": 1,
+      "rgba": { "r": 95, "g": 184, "b": 255, "a": 1 },
+      "boxShadow": {
+        "shiftRight": 10,
+        "shiftDown": 10,
+        "blur": 0,
+        "spread": 0,
+        "opacity": 100,
+        "inset": false
+      }
+    },
+    {
+      "id": 2,
+      "rgba": { "r": 161, "g": 216, "b": 255, "a": 1 },
+      "boxShadow": {
+        "shiftRight": 15,
+        "shiftDown": 15,
+        "blur": 0,
+        "spread": 0,
+        "opacity": 100,
+        "inset": false
+      }
+    },
+    {
+      "id": 3,
+      "rgba": { "r": 202, "g": 230, "b": 255, "a": 1 },
+      "boxShadow": {
+        "shiftRight": 20,
+        "shiftDown": 20,
+        "blur": 0,
+        "spread": 0,
+        "opacity": 100,
+        "inset": false
+      }
+    },
+    {
+      "id": 4,
+      "rgba": { "r": 225, "g": 238, "b": 255, "a": 1 },
+      "boxShadow": {
+        "shiftRight": 25,
+        "shiftDown": 25,
+        "blur": 0,
+        "spread": 0,
+        "opacity": 100,
+        "inset": false
+      }
+    }
+  ],
+  [
+    {
+      "id": 0,
+      "rgba": { "r": 255, "g": 0, "b": 0, "a": 1 },
+      "boxShadow": {
+        "shiftRight": -18,
+        "shiftDown": 0,
+        "blur": 40,
+        "spread": 0,
+        "opacity": 100,
+        "inset": false
+      }
+    },
+    {
+      "id": 1,
+      "rgba": { "r": 255, "g": 128, "b": 0, "a": 1 },
+      "boxShadow": {
+        "shiftRight": -10,
+        "shiftDown": 0,
+        "blur": 20,
+        "spread": 0,
+        "opacity": 100,
+        "inset": false
+      }
+    },
+    {
+      "id": 2,
+      "rgba": { "r": 255, "g": 255, "b": 0, "a": 1 },
+      "boxShadow": {
+        "shiftRight": -2,
+        "shiftDown": 0,
+        "blur": 10,
+        "spread": 0,
+        "opacity": 100,
+        "inset": false
+      }
+    },
+    {
+      "id": 3,
+      "rgba": { "r": 255, "g": 255, "b": 255, "a": 1 },
+      "boxShadow": {
+        "shiftRight": -1,
+        "shiftDown": 0,
+        "blur": 4,
+        "spread": 0,
+        "opacity": 100,
+        "inset": false
+      }
+    }
+  ]
+]

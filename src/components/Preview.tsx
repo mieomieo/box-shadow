@@ -6,9 +6,17 @@ import { RGBColor } from "react-color";
 
 const Preview = () => {
   const { listBoxShadow } = useContext(BoxShadowContext);
+  const boxShadowCSS = listBoxShadow
+    .map(
+      (item) =>
+        `rgba(${item.rgba.r}, ${item.rgba.g}, ${item.rgba.b}, ${
+          item.boxShadow.opacity / 100
+        }) ${item.boxShadow.shiftRight}px ${item.boxShadow.shiftDown}px ${
+          item.boxShadow.blur
+        }px ${item.boxShadow.spread}px ${item.boxShadow.inset ? "inset" : ""}`
+    )
+    .join(", ");
 
-  const { rgba, boxShadow } = listBoxShadow;
-  console.log(listBoxShadow);
   const [color, setColor] = useState<RGBColor>({
     r: 103,
     g: 232,
@@ -46,13 +54,7 @@ const Preview = () => {
         >
           <div
             style={{
-              boxShadow: listBoxShadow
-                .map((item) => {
-                  console.log(item);
-                  `rgba(${item.rgba.r}, ${item.rgba.g}, ${item.rgba.b}, ${item.rgba.a})`;
-                })
-                .join(", "),
-              // boxShadow: `rgba(${rgba.r}, ${rgba.g}, ${rgba.b}, ${rgba.a}) ${boxShadow.shiftDown}px ${boxShadow.shiftDown}px ${boxShadow.shiftDown}px ${boxShadow.shiftDown}px ${boxShadow.shiftDown}px)`,
+              boxShadow: `${boxShadowCSS}`,
               backgroundColor: `rgb(${color.r} ${color.g} ${color.b})`,
             }}
             className="w-40 h-40 ml-14 "

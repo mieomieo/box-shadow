@@ -6,7 +6,7 @@ import { ResetMinor } from "@shopify/polaris-icons";
 import { useContext } from "react";
 
 type Props = {
-  index: number;
+  index: number | undefined;
 };
 const ListRangeValues = ({ index }: Props) => {
   const context = useContext(BoxShadowContext);

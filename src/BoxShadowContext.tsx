@@ -46,6 +46,8 @@ interface BoxShadowContextProps {
   setListBoxShadow: Dispatch<SetStateAction<CSSCode[]>>;
   hasInset: boolean;
   setHasInset: Dispatch<SetStateAction<boolean>>;
+  selectedItemIndex: number;
+  setSelectedItemIndex: Dispatch<SetStateAction<number>>;
 }
 
 export const BoxShadowContext = createContext<
@@ -59,12 +61,14 @@ interface BoxShadowProviderProps {
 function BoxShadowProvider({ children }: BoxShadowProviderProps) {
   const [listBoxShadow, setListBoxShadow] = useState<CSSCode[]>([initValues]);
   const [hasInset, setHasInset] = useState(false);
-
+  const [selectedItemIndex, setSelectedItemIndex] = useState<number>(0);
   const value: BoxShadowContextProps = {
     listBoxShadow,
     setListBoxShadow,
     hasInset,
     setHasInset,
+    selectedItemIndex,
+    setSelectedItemIndex,
   };
 
   return (

@@ -5,9 +5,10 @@ import template from "./template.json";
 import { useContext } from "react";
 
 const Template = () => {
-  const context = useContext(BoxShadowContext);
-  const { setListBoxShadow } = context;
+  const { setListBoxShadow, setSelectedItemIndex } =
+    useContext(BoxShadowContext);
   const handleChooseTemplate = (id: number) => {
+    setSelectedItemIndex(0);
     setListBoxShadow(template[id - 1]);
   };
   return (

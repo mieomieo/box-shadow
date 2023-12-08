@@ -13,7 +13,9 @@ import { useContext, useRef, useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
 const BoxShadowGenerator = () => {
-  const [selectedItemIndex, setSelectedItemIndex] = useState<number>(0);
+  const { selectedItemIndex, setSelectedItemIndex } =
+    useContext(BoxShadowContext);
+
   console.log("selectedItemIndex:", selectedItemIndex);
   const context = useContext(BoxShadowContext);
   const { listBoxShadow, setListBoxShadow } = context;
@@ -109,7 +111,6 @@ const BoxShadowGenerator = () => {
                                   if (selectedItemIndex > 0) {
                                     setSelectedItemIndex(selectedItemIndex - 1);
                                   }
-
                                   handleDelete(item.id);
                                 }}
                               />

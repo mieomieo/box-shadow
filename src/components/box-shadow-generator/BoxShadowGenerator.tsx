@@ -9,7 +9,7 @@ import {
   DragHandleMinor,
   EditMinor,
 } from "@shopify/polaris-icons";
-import { useContext, useRef, useState } from "react";
+import { useContext, useRef } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
 const BoxShadowGenerator = () => {
@@ -82,19 +82,24 @@ const BoxShadowGenerator = () => {
                         >
                           <td className="flex mt-2 ">
                             <div
-                              className={`flex py-1 w-full h-10 border rounded-md select-none ${
+                              className={`flex py-1 w-full h-9 border rounded-md select-none ${
                                 index === selectedItemIndex
                                   ? "selected-item"
                                   : ""
                               }`}
                               {...provider.dragHandleProps}
                             >
-                              <DragHandleMinor />
+                              {index === selectedItemIndex ? (
+                                <EditMinor />
+                              ) : (
+                                <DragHandleMinor />
+                              )}
+
                               <div
                                 onClick={() => {
                                   setSelectedItemIndex(index);
                                 }}
-                                className="grow  py-1 text-md font-bold text-base "
+                                className="grow pl-2 py-1 text-base font-bold   "
                               >
                                 {item.boxShadow.inset && "inset"}{" "}
                                 {`${item.boxShadow.shiftRight}px ${
@@ -105,7 +110,7 @@ const BoxShadowGenerator = () => {
                                   item.rgba.b
                                 }, ${item.boxShadow.opacity / 100})`}
                               </div>
-                              <EditMinor />
+
                               <DeleteMinor
                                 onClick={() => {
                                   if (selectedItemIndex > 0) {
